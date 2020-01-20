@@ -1,12 +1,14 @@
+//reference the API key in all the different layers
+
 const API_KEY = "pk.eyJ1IjoibXJvbGxlcjIxIiwiYSI6ImNrNGMyN25jajBqdmIzZWxrdzk0ZzI1cTIifQ.jwwYrX2C0qlp6s_voVf_Jw"
 
-// Create map object
+// Create map object (center based on prior hws)
 var map = L.map("map", {
     center: [40.7128, -74.0059],
     zoom: 11
 });
 
-var earthquakes = new L.LayerGroup();
+var earthquakes = L.LayerGroup();
 
 // overlays 
 var overlayMaps = {
@@ -48,17 +50,17 @@ d3.json(link, function (data) {
     function chooseColor(magnitude) {
         switch (true) {
             case magnitude > 5:
-                return "#red";
+                return "red";
             case magnitude > 4:
-                return "#maroon";
+                return "maroon";
             case magnitude > 3:
-                return "#pink";
+                return "pink";
             case magnitude > 2:
-                return "#orange";
+                return "orange";
             case magnitude > 1:
-                return "#yellow";
+                return "yellow";
             default:
-                return "#green";
+                return "green";
         }
     }
 
@@ -99,15 +101,16 @@ d3.json(link, function (data) {
 
         var scale = [0, 1, 2, 3, 4, 5];
         var colorScale = [
-            "#red",
-            "#maroon",
-            "#pink",
-            "#orange",
-            "#yellow",
-            "#green"
+            "red",
+            "maroon",
+            "pink",
+            "orange",
+            "yellow",
+            "green"
         ];
 
-
+//The innerHTML property sets or returns the HTML content (inner HTML) of an element. in this case
+//implementing the legend we created in the past two chunks of code
         for (var i = 0; i < scale.length; i++) {
             div.innerHTML += "<i style='background: " + colorScale[i] + "'></i> " +
                 scale[i] + (scale[i + 1] ? "&ndash;" + scale[i + 1] + "<br>" : "+");
